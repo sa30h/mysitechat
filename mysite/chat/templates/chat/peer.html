@@ -3,6 +3,8 @@
 {% load static %}
 
 {% block content %}
+<label id="room-name">{{ room_name|json_script:"room-name" }}</label>
+
     <!-- <script>
         var numbTurnCredential = '{{numb_turn_credential}}';
         var numbTurnUsername = '{{numb_turn_username}}';

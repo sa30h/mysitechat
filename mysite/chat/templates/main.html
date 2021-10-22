@@ -6,17 +6,38 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Django Channels WebRTC</title>
+	<link rel="stylesheet"  href="{% static "css/all.css" %}">
+	<link rel="stylesheet"  href="{% static "css/bootstrap.css" %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 </head>
 <body>
-	<h3 id="label-username">USERNAME</h3>
-	<div>
+	<style>
+		body{
+			background-color: rgb(46, 43, 43);
+		}
+	.justify-content-between > div>video {
+  background-color: #f1f1f1;
+  width: 200px;
+  /* height: 200px; */
+  margin: 5px;
+  text-align: center;
+  line-height: 75px;
+  font-size: 30px;
+}
+h5{
+	color:rgb(250, 249, 249);
+}
+	</style>
+	<!-- <h3 id="label-username">USERNAME</h3> -->
+	<!-- <label id="room-name">{{ room_name|json_script:"room-name" }}</label> -->
+
+	<!-- <div>
 		<input id="username"><button id="btn-join">Join Room</button>
 	</div>
-	<div class="main-grid-container">
+	<div class="main-grid-container"> -->
 		<!-- for grid layout
 		assign class video-grad-layout -->
-		<div id="video-container">
+		<!-- <div id="video-container">
 			<div><video id="local-video" style="float: left;" autoplay playsinline></video></div>
 			<button id="btn-toggle-audio" class="btn btn-dark">Audio Mute</button>
 			<button id="btn-toggle-video" class="btn btn-dark">Video Off</button>
@@ -45,7 +66,181 @@
 				</div>
 			  </div>
 		</div>
+	</div> -->
+
+	<!-- container start -->
+	
+
+	<div class="container-fluid">
+		<div class="row">
+		  <div class="col">
+	
+	<style>
+	* {
+	  box-sizing: border-box;
+	}
+	
+	body {
+	  margin: 0;
+	  font-family: Arial, Helvetica, sans-serif;
+	  background-color: #2e2d2d;
+	}
+	
+	/* Style the side navigation */
+	.sidenav {
+	  height: 100%;
+	  width: 23%;
+	  overflow-y: hidden;
+	  position: fixed;
+	  z-index: 1;
+	  top: 0;
+	  right: 0;
+	  background-color: #fff;
+	  overflow-x: hidden;
+	  padding: 1%;
+	  /* background-color: #2e2d2d; */
+	  
+	}
+	
+	
+	/* Side navigation links */
+	.sidenav a {
+	  color: white;
+	  padding: 16px;
+	  text-decoration: none;
+	  display: block;
+	  
+	}
+	
+	/* Change color on hover */
+	.sidenav a:hover {
+	  background-color: #ddd;
+	  color: black;
+	}
+	
+	/* Style the content */
+	.content {
+	  margin-right: 200px;
+	  padding-right: 200px;
+	  min-height: 2000px;
+	  /* background-color: #2e2d2d; */
+	}
+	.flex-container {
+	  display: flex;
+	  flex-wrap: wrap;
+	  /* background-color: DodgerBlue; */
+	  justify-content: space-around;
+	}
+	
+	.flex-container > div>video {
+	  background-color: #f1f1f1;
+	  width: 200px;
+	  /* height: 200px; */
+	  margin: 5px;
+	  text-align: center;
+	  line-height: 75px;
+	  font-size: 30px;
+	}
+	h5{
+	  color:#fff;
+	  font-weight: bold;
+	  font-size: 20px;
+	}
+	textarea{
+	  color: #2e2d2d;
+	  font-weight: bold;
+	  text-indent: 2pt;
+	}
+	
+	</style>
+	
+	
+	
+	
+	
+	<div class="sidenav">
+	  <h3 style="text-align: center;">Chat</h3>
+	  <div class="" id="chat" >
+				<div class="row" >
+				
+						<textarea class="form-control card h6" id="chat-log" rows="14" cols="70" disabled style="background-color: #fff;"></textarea>
+	
+				 
+					
+				  
+						<div class="my-2" >
+							<div id="ct" class="my-2"><input id="msg" class="form-group"><button class="btn btn-success mx-1 px-1 py-1" id="btn-send-msg">send</button></div>
+							<button id="btn-share-screen" class="btn btn-primary">Share Screen</button>
+							
+							<button id="btn-record-screen" class="btn btn-danger">Record Screen</button>
+							
+							<button class="view-button btn btn-info my-1" id="share-file-button" >Share File</button>
+							<div id="select-file-dialog" style="display: none;">
+								<div id="dialog-content">
+								  <div id="select-file">
+									<div id="label"><h5>Select a file:</h5></div>
+									<input type="file" id="select-file-input">
+								  </div>
+								  <div id="dialog-footer" class="py-2">
+									<button id="ok-button" class="btn btn-success" disabled>Ok</button>
+									<button id="cancel-button" class="cancel-button btn btn-danger">Cancel</button>
+								  </div>
+								</div>
+							  </div>
+							  </div>
+						
+		   
+						 
+					
+					   
+					</div>
+		  
+					  
+					
+				  </div>
 	</div>
+	
+	<div class="content">
+	 
+	
+		<div class="container my-5">
+			<div class="row">
+				<!-- <h3 id="label-username">USERNAME</h3> -->
+				<!-- <label id="room-name">{{ room_name|json_script:"room-name" }}</label> -->
+		
+				
+			
+				<div class="col ">
+					<div class="row justify-content-between" id="video-container">
+	
+						<div class="col-4"><video id="local-video" class="col-4" style="float: left;" autoplay playsinline></video>
+							<h5 id="label-username">USERNAME</h5>
+							<div class=" row justify-content-around" id="join-div">
+	
+								<input id="username" >
+							<button id="btn-join"class="btn btn-primary my-2" >Join Room</button>
+							</div>
+							<button id="btn-toggle-audio" class="btn btn-dark">Audio Mute</button>
+							<button id="btn-toggle-video" class="btn btn-dark">Video Off</button>
+	
+						</div>
+					
+	
+	
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	
+		   
+		  </div>
+		</div>
+	  </div>
+<script src="{% static 'leanchat/js/jquery.js'%}"></script>
+<script src="{% static 'leanchat/js/popper.js'%}"></script>
+<script src="{% static 'leanchat/js/all.js'%}"></script>
+<script src="{% static 'leanchat/js/bootstrap.js'%}"></script>
     {% block content %}
     {% endblock %}
 </body>

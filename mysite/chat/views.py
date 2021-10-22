@@ -4,6 +4,14 @@ from .utils import get_turn_info
 
 # Create your views here.
 
+def index(request):
+    return render(request, 'chat/index.html')
+
+# def room(request,room_name):
+#     context={}
+#     context['room_name']=room_name
+#     return render(request,'chat/main.html',context)
+
 def peer1(request):
     # get numb turn info
     context = get_turn_info()
@@ -16,9 +24,13 @@ def peer2(request):
 
     return render(request, 'chat/peer2.html', context=context)
 
-def peer(request):
+def peer(request,room_name):
     # get numb turn info
-    context = get_turn_info()
+    context={}
+    context['room_name']=room_name
+    context['get_turn_info']=get_turn_info()
+    # context = get_turn_info()
+
     print('context: ', context)
 
-    return render(request, 'chat/peer.html', context=context)
+    return render(request, 'chat/peer.html',context)

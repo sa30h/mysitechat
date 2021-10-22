@@ -1,5 +1,5 @@
 var loc = window.location;
-
+console.log('in peer2')
 var endPoint = '';
 var wsStart = 'ws://';
 

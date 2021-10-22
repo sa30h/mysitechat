@@ -1,6 +1,7 @@
 // map peer usernames to corresponding RTCPeerConnections
 // as key value pairs
 var mapPeers = {};
+console.log('in peer')
 
 // peers that stream own screen
 // to remote peers
@@ -65,7 +66,12 @@ if(loc.protocol == 'https:'){
     wsStart = 'wss://';
 }
 
-var endPoint = wsStart + loc.host + loc.pathname;
+const roomNamestr = JSON.parse(document.getElementById('room-name').textContent);
+
+
+// var endPoint = wsStart + loc.host + loc.pathname;
+var endPoint=wsStart+loc.host+'/ws/chat/'+roomNamestr+'/';
+
 
 var webSocket;
 
@@ -85,6 +91,7 @@ btnJoin.onclick = () => {
         return;
     }
 
+
     // clear input
     usernameInput.value = '';
     // disable and vanish input
@@ -95,6 +102,9 @@ btnJoin.onclick = () => {
     btnJoin.style.visibility = 'hidden';
 
     document.querySelector('#label-username').innerHTML = username;
+
+    const roomNamestr = JSON.parse(document.getElementById('room-name').textContent);
+
 
     webSocket = new WebSocket(endPoint);
 
@@ -230,10 +240,13 @@ btnSendMsg.onclick = btnSendMsgOnClick;
 
 function btnSendMsgOnClick(){
     var message = messageInput.value;
+
+    document.querySelector('#chat-log').value += ('You:'+'\n'+message + '\n');
+    // message=username+'\n'+':'+message;
     
-    var li = document.createElement("li");
-    li.appendChild(document.createTextNode("Me: " + message));
-    ul.appendChild(li);
+    // var li = document.createElement("li");
+    // li.appendChild(document.createTextNode("Me: " + message));
+    // ul.appendChild(li);
     
     var dataChannels = getDataChannels();
 
@@ -696,10 +709,9 @@ function createAnswerer(offer, peerUsername, localScreenSharing, remoteScreenSha
 
 function dcOnMessage(event){
     var message = event.data;
-    
-    var li = document.createElement("li");
-    li.appendChild(document.createTextNode(message));
-    ul.appendChild(li);
+    document.querySelector('#chat-log').value += (message + '\n');
+
+
 }
 
 // get all stored data channels
@@ -742,8 +754,12 @@ function createVideo(peerUsername){
     // create the new video element
     // and corresponding user gesture button
     var remoteVideo = document.createElement('video');
-    // var btnPlayRemoteVideo = document.createElement('button');
+    var userlabel=document.createElement('h5')
+    userlabel.innerHTML=peerUsername;
 
+
+    // var btnPlayRemoteVideo = document.createElement('button');
+    remoteVideo.className="col-4"
     remoteVideo.id = peerUsername + '-video';
     remoteVideo.autoplay = true;
     remoteVideo.playsinline = true;
@@ -752,12 +768,14 @@ function createVideo(peerUsername){
 
     // wrapper for the video and button elements
     var videoWrapper = document.createElement('div');
+    videoWrapper.className="col-4"
 
     // add the wrapper to the video container
     videoContainer.appendChild(videoWrapper);
 
     // add the video to the wrapper
     videoWrapper.appendChild(remoteVideo);
+    videoWrapper.appendChild(userlabel)
     // videoWrapper.appendChild(btnPlayRemoteVideo);
 
     // as user gesture

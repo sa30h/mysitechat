@@ -1,6 +1,6 @@
 asgiref==3.2.10
 attrs==20.3.0
-autobahn==21.3.1
+#autobahn==21.3.1
 Automat==20.2.0
 cffi==1.14.5
 channels==3.0.3
@@ -21,6 +21,6 @@ service-identity==18.1.0
 six==1.15.0
 sqlparse==0.4.1
 Twisted==21.2.0
-twisted-iocpsupport==1.0.1
+#twisted-iocpsupport==1.0.1
 txaio==21.2.1
 zope.interface==5.2.0
