@@ -241,7 +241,7 @@ btnSendMsg.onclick = btnSendMsgOnClick;
 function btnSendMsgOnClick(){
     var message = messageInput.value;
 
-    document.querySelector('#chat-log').value += ('You:'+'\n'+message + '\n');
+    document.querySelector('#chat-log').value += ('You:'+message + '\n');
     // message=username+'\n'+':'+message;
     
     // var li = document.createElement("li");
@@ -435,8 +435,18 @@ function sendSignal(action, message){
 // create RTCPeerConnection as offerer
 // and store it and its datachannel
 // send sdp to remote peer after gathering is complete
+
 function createOfferer(peerUsername, localScreenSharing, remoteScreenSharing, receiver_channel_name){
-    var peer = new RTCPeerConnection(null);
+   
+    let servers={
+        iceServers:[
+            {
+                urls:['stun:stun1.l.google.com:19302','stun:stun2.l.google.com:19302'],
+            },
+        ],
+        iceCandidatePoolSize:10,
+    };
+    var peer = new RTCPeerConnection(servers);
     
     // add local user media stream tracks
     addLocalTracks(peer, localScreenSharing);
@@ -551,7 +561,16 @@ function createOfferer(peerUsername, localScreenSharing, remoteScreenSharing, re
 // and store it and its datachannel
 // send sdp to remote peer after gathering is complete
 function createAnswerer(offer, peerUsername, localScreenSharing, remoteScreenSharing, receiver_channel_name){
-    var peer = new RTCPeerConnection(null);
+   
+    let servers={
+        iceServers:[
+            {
+                urls:['stun:stun1.l.google.com:19302','stun:stun2.l.google.com:19302'],
+            },
+        ],
+        iceCandidatePoolSize:10,
+    };
+    var peer = new RTCPeerConnection(servers);
 
     addLocalTracks(peer, localScreenSharing);
 
